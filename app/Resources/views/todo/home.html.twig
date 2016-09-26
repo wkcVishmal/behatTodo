@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="panel panel-default" ng-app="myApp" ng-controller="myCtrl">
+
+        <div class="page-header">
+            <form class="simple-form">
+                <div class="input-group">
+                    <div class="col-xs-10">
+                        <input name="name" id="name" ng-model="con.name" class="form-control" type="text" placeholder="Enter Item here" id="example-text-input" ng-click="hideMsg()" required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <select name="priority" id="priority" ng-model="con.priority" ng-options="country.id as country.name for country in con.countries"></select>
+                    </div>
+
+                    <span class="input-group-btn">
+                    <div class="form-group">
+                        <button id="submit" name="submit" type="submit" ng-click="add(con)" class="btn btn-primary" ng-disabled="myform.$invalid">Add Item</button>
+                    </div>
+                </span>
+                    <span>
+                         <div class="col-md-1"></div>
+                    </span>
+                </div>
+            </form>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="btn-group" style="border-top: 1px solid #ccc;">
+                <button type="button" class="btn btn-primary" ng-click="all()">All</button>
+                <button type="button" class="btn btn-primary" ng-click="todo()">Items to do</button>
+                <button type="button" class="btn btn-primary" ng-click="getDone()">Done Items</button>
+            </div>
+            <div style="border-top: 1px solid #ccc; margin-top: 20px">
+                <table class="table">
+
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Item Name</th>
+                        <th>State</th>
+                        <th>Priority</th>
+                        <th>Created At</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in items">
+
+                        <td>{{ '{{ item.id }}' }}</td>
+                        <td>{{ '{{ item.name }}' }}</td>
+                        <td><input type="button" ng-click="done(item.id)" value="{{ '{{ item.state }}' }}"></td>
+                        <td ng-show="item.priority == 1">High</td>
+                        <td ng-show="item.priority == 2">Normal</td>
+                        <td ng-show="item.priority == 3">Low</td>
+                        <td>{{ '{{ item.created }}' }}</td>
+                        <td><input type="button" ng-click="delete(item.id)" value="Delete"></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/home.js') }}"></script>
+{% endblock %}
